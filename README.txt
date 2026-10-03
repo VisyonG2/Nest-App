@@ -11,3 +11,7 @@ Nest 5 changes:
 - The old sample “Saturday errands” note is automatically removed if it came from an earlier Nest preview.
 
 The browser preview stores notes locally. The native-ios-source folder remains the path for fully offline iPhone local notifications.
+
+Nest 6 changes:
+- Pinch zoom disabled while one-finger scrolling remains enabled.
+- Home Screen icon is now full-bleed so iOS supplies the rounded shape without an extra white box.

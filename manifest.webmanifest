@@ -1,12 +1,22 @@
 {
-  "name":"Nest",
-  "short_name":"Nest",
-  "start_url":"./index.html",
-  "display":"standalone",
-  "background_color":"#fff8ee",
-  "theme_color":"#fff8ee",
-  "icons":[
-    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png"}
+  "name": "Nest",
+  "short_name": "Nest",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff8ee",
+  "theme_color": "#fff8ee",
+  "icons": [
+    {
+      "src": "icons/nest-icon-v6-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/nest-icon-v6-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
