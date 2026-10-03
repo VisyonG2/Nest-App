@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff8ee" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Nest" />
+  <title>Nest</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell" id="appShell">
+    <section class="screen active" id="homeScreen" aria-label="Notes">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <img class="brand-chick" src="icons/icon-192.png" alt="Nest chick" />
+          <div><p class="eyebrow" id="todayLabel">TODAY</p><h1>Nest</h1></div>
+        </div>
+        <button class="round-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+      </header>
+
+      <section class="hero-card">
+        <div class="hero-copy">
+          <span class="hero-kicker" id="greeting">Good afternoon ☀️</span>
+          <h2>What’s on your mind?</h2>
+          <p>Keep a thought, make a list, or set something to remember.</p>
+          <div class="hero-actions">
+            <button class="hero-btn primary" id="quickNoteBtn">✏️ New note</button>
+            <button class="hero-btn" id="quickListBtn">✅ Checklist</button>
+          </div>
+        </div>
+        <img src="icons/icon-192.png" class="hero-chick" alt="" />
+      </section>
+
+      <div class="search-wrap"><span>🔎</span><input id="searchInput" type="search" placeholder="Search Nest" autocomplete="off" /></div>
+
+      <div class="filter-row" id="filterRow">
+        <button class="chip active" data-filter="all">✨ All</button>
+        <button class="chip" data-filter="pinned">📌 Pinned</button>
+        <button class="chip" data-filter="lists">✅ Lists</button>
+        <button class="chip" data-filter="reminders">🔔 Reminders</button>
+      </div>
+
+      <div class="section-heading"><div><p class="section-kicker">YOUR NEST</p><h2>Notes</h2></div><span id="noteSummary">0 notes</span></div>
+      <div class="notes-list" id="notesList"></div>
+      <div class="empty-state" id="emptyState" hidden><div class="empty-icon">🌱</div><button class="empty-add-btn" id="emptyAddBtn" type="button">＋ Add a note</button></div>
+      <div class="bottom-spacer"></div>
+    </section>
+
+    <section class="screen" id="remindersScreen" aria-label="Reminders">
+      <header class="topbar simple"><div><p class="eyebrow">UPCOMING</p><h1>Reminders 🔔</h1></div><button class="round-btn" id="reminderAddBtn">＋</button></header>
+      <section class="reminder-hero"><span>🌼</span><div><strong>A little nudge at the right time</strong><p>Your scheduled notes show up here.</p></div></section>
+      <div class="reminders-list" id="remindersList"></div>
+      <div class="empty-state" id="remindersEmpty" hidden><div class="empty-icon">🌱</div><button class="empty-add-btn" id="remindersEmptyAddBtn" type="button">＋ Add a reminder</button></div>
+      <div class="bottom-spacer"></div>
+    </section>
+
+    <section class="screen" id="editorScreen" aria-label="Note editor">
+      <header class="editor-bar"><button class="text-btn" id="backBtn">‹ Notes</button><div class="editor-actions"><button class="round-btn small" id="pinBtn" aria-label="Pin note">📌</button><button class="round-btn small danger" id="deleteBtn" aria-label="Delete note">🗑️</button></div></header>
+      <div class="editor-card">
+        <input class="title-input" id="titleInput" type="text" placeholder="Title" maxlength="120" />
+        <div class="segmented type-segmented"><button id="plainTypeBtn" class="active">📝 Note</button><button id="listTypeBtn">✅ Checklist</button></div>
+        <button class="reminder-row" id="reminderRow"><span class="reminder-icon">🔔</span><span class="reminder-copy"><strong id="reminderRowTitle">Add reminder</strong><small id="reminderRowSub">Get a notification later</small></span><span class="chevron">›</span></button>
+        <textarea class="body-input" id="bodyInput" placeholder="Start writing… 💭"></textarea>
+        <div class="checklist-editor" id="checklistEditor" hidden><div id="checklistItems"></div><button class="add-item-btn" id="addChecklistItemBtn">＋ Add item</button></div>
+        <div class="save-state" id="saveState">✓ Saved</div>
+      </div>
+    </section>
+
+    <section class="screen" id="settingsScreen" aria-label="Settings">
+      <header class="editor-bar"><button class="text-btn" id="settingsBackBtn">‹ Nest</button><h2>Settings</h2><span class="bar-spacer"></span></header>
+      <div class="settings-content">
+        <div class="settings-profile"><img src="icons/icon-192.png" alt="Nest chick" /><div><strong>Nest 🐥</strong><span>Notes & reminders</span></div></div>
+
+        <p class="group-label">APPEARANCE</p>
+        <div class="settings-group">
+          <div class="setting-block"><div class="setting-copy"><span class="setting-emoji">🎨</span><div><strong>Appearance</strong><small>Choose how Nest looks</small></div></div><div class="segmented compact" id="themeSegment"><button data-theme="light">Light</button><button data-theme="dark">Dark</button><button data-theme="system">Auto</button></div></div>
+          <div class="setting-block vertical"><div class="setting-title-line"><div class="setting-copy"><span class="setting-emoji">Aa</span><div><strong>Text size</strong><small id="textSizeLabel">Medium</small></div></div><span class="value-bubble" id="textSizeValue">100%</span></div><input class="ios-slider" id="textSizeSlider" type="range" min="90" max="120" step="5" value="100" /></div>
+        </div>
+
+        <p class="group-label">NOTES</p>
+        <div class="settings-group">
+          <label class="setting-row"><div class="setting-copy"><span class="setting-emoji">👀</span><div><strong>Note previews</strong><small>Show a little text under each title</small></div></div><input class="switch-input" id="previewToggle" type="checkbox" checked><span class="ios-switch"></span></label>
+          <label class="setting-row"><div class="setting-copy"><span class="setting-emoji">🪶</span><div><strong>Compact cards</strong><small>Fit more notes on screen</small></div></div><input class="switch-input" id="compactToggle" type="checkbox"><span class="ios-switch"></span></label>
+          <label class="setting-row"><div class="setting-copy"><span class="setting-emoji">📌</span><div><strong>Pinned first</strong><small>Keep pinned notes at the top</small></div></div><input class="switch-input" id="pinnedFirstToggle" type="checkbox" checked><span class="ios-switch"></span></label>
+        </div>
+
+        <p class="group-label">REMINDERS</p>
+        <div class="settings-group">
+          <label class="setting-row"><div class="setting-copy"><span class="setting-emoji">🔔</span><div><strong>Reminder notifications</strong><small>Allow Nest reminders</small></div></div><input class="switch-input" id="notificationToggle" type="checkbox" checked><span class="ios-switch"></span></label>
+          <label class="setting-row"><div class="setting-copy"><span class="setting-emoji">🔕</span><div><strong>Hide note text</strong><small>Show “Nest reminder” instead of the note</small></div></div><input class="switch-input" id="hideTextToggle" type="checkbox"><span class="ios-switch"></span></label>
+        </div>
+
+        <p class="group-label">BACKUP</p>
+        <div class="settings-group">
+          <button class="settings-link" id="exportBtn"><span><b>📦</b> Export backup</span><b>›</b></button>
+          <label class="settings-link file-label"><span><b>📥</b> Import backup</span><b>›</b><input id="importInput" type="file" accept="application/json" hidden /></label>
+        </div>
+        <p class="version-label">Nest 5.0</p>
+      </div>
+    </section>
+
+    <nav class="tabbar" id="tabbar">
+      <button class="tab active" data-tab="notes"><span>📝</span><small>Notes</small></button>
+      <button class="tab" data-tab="reminders"><span>🔔</span><small>Reminders</small></button>
+      <button class="tab" data-tab="settings"><span>⚙️</span><small>Settings</small></button>
+    </nav>
+
+    <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+    <section class="bottom-sheet clock-sheet" id="reminderSheet" aria-label="Reminder" hidden>
+      <div class="sheet-handle"></div>
+      <div class="clock-sheet-nav">
+        <button class="clock-nav-btn" id="closeReminderSheet">Cancel</button>
+        <strong>Reminder</strong>
+        <button class="clock-nav-btn clock-done" id="saveReminderBtn">Save</button>
+      </div>
+
+      <div class="clock-time-card">
+        <div class="time-wheel-shell" aria-label="Choose reminder time">
+          <div class="wheel-selection" aria-hidden="true"></div>
+          <div class="wheel-column" id="hourWheel" aria-label="Hour"></div>
+          <div class="wheel-separator">:</div>
+          <div class="wheel-column" id="minuteWheel" aria-label="Minute"></div>
+          <div class="wheel-column period-wheel" id="ampmWheel" aria-label="AM or PM"></div>
+        </div>
+        <div class="clock-time-caption" id="reminderTimePreview">9:00 AM</div>
+      </div>
+
+      <div class="clock-options-group">
+        <button class="clock-option-row" id="reminderDateBtn" type="button">
+          <span>Date</span>
+          <span class="clock-option-value"><span id="clockDateText">Today</span><span class="chevron calendar-chevron">›</span></span>
+        </button>
+        <section class="calendar-panel" id="calendarPanel" hidden aria-label="Choose reminder date">
+          <div class="calendar-header">
+            <button type="button" id="calendarPrev" aria-label="Previous month">‹</button>
+            <strong id="calendarMonthLabel"></strong>
+            <button type="button" id="calendarNext" aria-label="Next month">›</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+        <button class="clock-option-row" id="todayReminderBtn" type="button"><span>Today</span><span class="clock-option-value">Set date to today</span></button>
+        <button class="clock-option-row" id="tomorrowReminderBtn" type="button"><span>Tomorrow</span><span class="clock-option-value">Set date to tomorrow</span></button>
+      </div>
+
+      <button class="sheet-secondary danger-text clock-remove" id="removeReminderBtn">Delete Reminder</button>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
